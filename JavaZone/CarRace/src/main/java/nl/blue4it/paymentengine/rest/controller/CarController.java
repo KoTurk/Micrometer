@@ -39,7 +39,7 @@ public class CarController {
     }
 
     @GetMapping("pitstop")
-    // 1.1 Create Timed annotation and call it car.race.pitstop
+    // 1.1 Create Timed annotation and call it car.race.pitstop.annotation
     public String doPitstop() {
         // 1.2 Create Timer "car.race.pitstop.metrics" from Metrics class, call record from car.refuel
 
@@ -91,17 +91,14 @@ public class CarController {
     @GetMapping("/partymode")
     public String enginePartyMode() {
         // 7.1 Sending data to other Kafka topics and find the metrics in actuator
-        producer.send("engine", "Party Mode ON");
+        // after calling the endpoint check metric spring.kafka.listener for the count
         return consumer.getRecord();
     }
 
     @GetMapping("/registry")
     public Meter getRegistry() {
-        // 8.1 getting the data out of actuator
-        return registry.getMeters().stream()
-               .filter(meter -> meter.getId().getName().equals("http.server.requests"))
-               .findFirst()
-               .orElseThrow(NullPointerException::new);
+        // 8.1 getting the data out of actuator with registry.getMeters.stream
+        return null;
     }
 
 

@@ -17,20 +17,11 @@ For running docker, go to that folder and execute command:
 <pre><code>docker-compose up</code></pre>
 
 ### Prometheus
-Please note that I downloaded and run Prometheus.
+If you want to use Prometheus, please note that I downloaded and run Prometheus.
 You can download it from:<br>
 https://prometheus.io/download/ <br><br>
 
-Don't forget to change the target url to your micrometer instance (targets) 
-<pre><code>   static_configs:
-    - targets: ['localhost:8080']
-</code></pre>
-
-and the security parameters in the prometheus.yml file<br>
-<pre><code>  basic_auth:
-      username: "user"
-      password: "pass"
-</code></pre>
+Please use the configuration from prometheus/prometheus.yml
 
 ### Grafana
 Please note that I downloaded and run Grafana as my preferred monitoring dashboard tool. <br> 
