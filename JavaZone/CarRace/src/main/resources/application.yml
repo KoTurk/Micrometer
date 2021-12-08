@@ -30,11 +30,6 @@ spring:
           value:
             serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
 management:
-#  metrics:
-#    export:
-#      jmx:
-#        enabled: true
-
   endpoints:
     web:
       exposure:
