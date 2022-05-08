@@ -2,6 +2,7 @@
 
 ## Prerequisites
 - IDE
+- Minimal Java 11
 - Maven (Optional)
 - Prometheus
 - Grafana
