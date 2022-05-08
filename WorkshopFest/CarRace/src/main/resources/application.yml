@@ -1,0 +1,3 @@
+management.metrics.export.prometheus.enabled: true
+spring.application.name: car-race
+management.endpoints.web.exposure.include: 'metrics, prometheus'
