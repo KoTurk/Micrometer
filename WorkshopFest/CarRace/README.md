@@ -1,4 +1,6 @@
-# Workshop (Micrometer)
+# Pole position with Spring Boot and Micrometer!
+
+<img src="https://www.formula1.com/content/dam/fom-website/manual/Misc/2021manual/2021FranceManualAdds/Friday/GettyImages-1233520532.jpg" />
 
 ## Prerequisites
 - IDE
