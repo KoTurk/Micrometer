@@ -26,10 +26,10 @@ public class _03_TaggedTagTimer {
         this.tagName = tagName;
     }
     public Timer getTimer(String tagValue){
-        // TODO get the timer from the hashmap
-        Timer timer = null;
+       Timer timer = timers.get(name);
+
         if(timer == null) {
-            // TODO create timer with builder
+            timer = null; // TODO create timer here
             timers.put(tagValue, timer);
         }
         return timer;

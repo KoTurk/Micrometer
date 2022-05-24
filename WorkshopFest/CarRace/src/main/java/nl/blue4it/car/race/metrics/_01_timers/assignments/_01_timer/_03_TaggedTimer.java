@@ -14,17 +14,13 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class _03_TaggedTimer {
-    private final MeterRegistry registry;
     private final Map<String, Timer> timers = new HashMap<>();
 
-
     public Timer getTimer(String name){
-        // TODO get the timer from the hashmap
-        Timer timer = null;
+        Timer timer = timers.get(name);
 
         if(timer == null) {
-            // TODO create timer with builder
-            timer = null;
+            timer = null; // TODO create timer here
             timers.put(name, timer);
         }
         return timer;

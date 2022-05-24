@@ -35,6 +35,7 @@ public class _02_Pitstop {
         // TODO create timer from Timer interface,
         //  give it a name, and only record the penalty seconds
 
+        // or create timer in taggedTimer (less memory needed)
         taggedTimer.getTimer("penalty").record(penalty);
 
         return penalty;

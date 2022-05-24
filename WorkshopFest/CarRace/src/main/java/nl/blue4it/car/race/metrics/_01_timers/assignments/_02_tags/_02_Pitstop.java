@@ -21,8 +21,9 @@ public class _02_Pitstop {
     public Duration pitstopFerrari() {
         Duration pitstop = Duration.ofSeconds(3);
 
-        // TODO Create Timer with builder, tag driver and LeClerq as value
+        // TODO Create Timer with Metrics class, tag driver and LeClerq as value
 
+        // or create timer in taggedTimer (less memory needed)
         _03_TaggedTagTimer taggedTimer = new _03_TaggedTagTimer("assignment_1.2.3", "driver");
         taggedTimer.getTimer("leclerq").record(pitstop);
 
@@ -31,7 +32,7 @@ public class _02_Pitstop {
 
     @GetMapping("/crash")
     public ResponseEntity<Object> crash() {
-        // TODO Throw an exception instead of null and find status in actuator
+        // TODO For speaker throw an exception instead of null and find status in actuator
         //http://localhost:8080/actuator/metrics/http.server.requests?tag=uri:/car/race/crash
         return null;
     }

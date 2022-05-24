@@ -20,13 +20,6 @@ public class _01_TimerController {
         return "We did a pitstop in " + pitstop.changeTires().toSeconds() + " seconds";
     }
 
-    @GetMapping("wrong")
-    // TODO create a longtasktimer and give it a name
-    public String pitstop() throws InterruptedException {
-        pitstop.somethingsWrong();
-        return "We did a pitstop";
-    }
-
     @GetMapping("front")
     public String frontAndTires() {
         return "We did a pitstop in " + pitstop.changeFrontAndTires().toSeconds() + " seconds";
@@ -37,4 +30,10 @@ public class _01_TimerController {
         return "We stopped because of a penalty, " + pitstop.penalty().toSeconds() + " seconds";
     }
 
+    @GetMapping("wrong")
+    // TODO create a longtasktimer and give it a name
+    public String pitstop() throws InterruptedException {
+        pitstop.somethingsWrong();
+        return "We did a pitstop";
+    }
 }

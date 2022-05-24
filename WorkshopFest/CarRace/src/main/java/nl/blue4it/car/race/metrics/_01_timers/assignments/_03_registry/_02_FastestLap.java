@@ -16,21 +16,20 @@ public class _02_FastestLap {
         String driverVerstappenTag = "verstappen";
         String driverLeClerqTag = "leclerq";
 
-        // TODO create a timer with tag driver leclerq
-        // TODO create a timer with tag driver verstappen
-        Timer timerLeClerq = null;
-        Timer timerVerstappen = null;
+        Timer timerLeClerq = Timer.builder(timerName).tag(tag, driverLeClerqTag).register(Metrics.globalRegistry);
+        Timer timerVerstappen = Timer.builder(timerName).tag(tag, driverVerstappenTag).register(Metrics.globalRegistry);
 
         timerLeClerq.record(Duration.ofSeconds(ThreadLocalRandom.current().nextLong(3,20)));
         timerVerstappen.record(Duration.ofSeconds(ThreadLocalRandom.current().nextLong(3,20)));
 
-        // TODO get all the meters,
-        //  with registry.getMeters().stream
-        //  filter on tag driver Verstappen
-        Timer timer = null;
+        Timer timer = ((Timer) Metrics.globalRegistry.getMeters().stream()
+                    .filter(meter -> meter.getId().getTag(tag).equals(driverVerstappenTag))
+                    .findFirst()
+                    .orElse(Metrics.timer(timerName)));
 
         // TODO remove the fastest lap from the registry
         //  for a driver because crossing a white line
         //  use a method from Metrics.globalRegistry
+        Metrics.globalRegistry.remove(timer);
     }
 }
