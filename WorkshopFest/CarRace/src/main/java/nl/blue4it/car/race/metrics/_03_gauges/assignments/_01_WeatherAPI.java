@@ -13,9 +13,13 @@ public class _01_WeatherAPI {
     public String get() {
         String weather = randomWeather();
 
-        // TODO create a Gauge, with randomHardness
+        // TODO create a Gauge, with value randomHardness
         //  and tag condition and put weather in it
         //  and register it
+//        Gauge.builder("assignment_3.1", this::<value_here>)
+//                .tags("condition", <weather_here>)
+//                .strongReference(true)
+//                .register(Metrics.globalRegistry);
 
         return weather;
     }

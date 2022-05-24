@@ -29,7 +29,8 @@ public class _01_Pitstop {
 //            .register(prometheusMeterRegistry)
 //            .record(ThreadLocalRandom.current().nextLong(3,20), TimeUnit.SECONDS);
 
-        // TODO call endpoint and check prometheus endpoint to see that there is a different buck for the SLA time.
-        // localhost:
+        // TODO call endpoint http://localhost:8080/car/race/pitstop/sla
+        //  and check prometheus endpoint to see that there is a different buck for the SLA time.
+        // http://localhost:8080/actuator/prometheus
     }
 }
