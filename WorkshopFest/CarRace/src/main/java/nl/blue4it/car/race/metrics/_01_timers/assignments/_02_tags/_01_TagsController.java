@@ -19,6 +19,7 @@ public class _01_TagsController {
     //  tag id changed, value tires
     //  tag id changed, value front
     @GetMapping("redbull")
+    @Timed(value = "redbull_pitstop", extraTags = {"driver", "verstappen"})
     public String redBullPitstop() {
         return "Redbull did a pitstop in " + pitstop.pitstopRedBull().toSeconds() + " seconds";
     }

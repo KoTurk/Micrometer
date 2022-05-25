@@ -16,10 +16,10 @@ public class _01_WeatherAPI {
         // TODO create a Gauge, with value randomHardness
         //  and tag condition and put weather in it
         //  and register it
-//        Gauge.builder("assignment_3.1", this::<value_here>)
-//                .tags("condition", <weather_here>)
-//                .strongReference(true)
-//                .register(Metrics.globalRegistry);
+        Gauge.builder("assignment_3.1", this::randomHardness)
+                .tags("condition", randomWeather())
+                .strongReference(true)
+                .register(Metrics.globalRegistry);
 
         return weather;
     }

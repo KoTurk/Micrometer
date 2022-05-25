@@ -22,12 +22,12 @@ public class _01_Pitstop {
         //  maximum expected 7 seconds
         //  register it to prometheus
         //  record the randomSeconds with a unit of seconds
-//        Timer.builder("assignment_1.4")
-//            .sla(....)
-//            .minimumExpectedValue(...)
-//            .maximumExpectedValue(...)
-//            .register(prometheusMeterRegistry)
-//            .record(ThreadLocalRandom.current().nextLong(3,20), TimeUnit.SECONDS);
+        Timer.builder("assignment_1.4")
+            .sla(Duration.ofSeconds(6))
+            .minimumExpectedValue(Duration.ofSeconds(3))
+            .maximumExpectedValue(Duration.ofSeconds(10))
+            .register(prometheusMeterRegistry)
+            .record(ThreadLocalRandom.current().nextLong(3,20), TimeUnit.SECONDS);
 
         // TODO call endpoint http://localhost:8080/car/race/pitstop/sla
         //  and check prometheus endpoint to see that there is a different buck for the SLA time.

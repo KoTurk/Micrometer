@@ -25,6 +25,8 @@ public class _02_Pitstop {
 
         // TODO create timer from Metrics class,
         //  give it a name, and only measure the front seconds
+        Metrics.timer("assignment_1.1.3")
+                .record(frontSeconds);
 
         return frontSeconds.plus(tiresSeconds);
     }
@@ -34,6 +36,9 @@ public class _02_Pitstop {
 
         // TODO create timer from Timer interface,
         //  give it a name, and only record the penalty seconds
+        Timer.builder("assignment_1.1.4")
+                        .register(Metrics.globalRegistry)
+                        .record(penalty);
 
         // or create timer in taggedTimer (less memory needed)
         taggedTimer.getTimer("penalty").record(penalty);

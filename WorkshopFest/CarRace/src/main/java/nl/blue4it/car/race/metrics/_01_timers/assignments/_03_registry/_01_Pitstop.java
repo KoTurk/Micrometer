@@ -18,12 +18,10 @@ public class _01_Pitstop {
         // TODO get the max pitstop time
         // with max from the Timer
 
-//        return ((Timer) Metrics.globalRegistry.getMeters()
-//                .stream()
-//                    .filter(meter -> meter.getId().getName().equals(timerName))
-//                    .findFirst()
-//                    .get())
-
-        return 0.0;
+        return ((Timer) Metrics.globalRegistry.getMeters()
+                .stream()
+                    .filter(meter -> meter.getId().getName().equals(timerName))
+                    .findFirst()
+                    .get()).max(TimeUnit.SECONDS);
     }
 }

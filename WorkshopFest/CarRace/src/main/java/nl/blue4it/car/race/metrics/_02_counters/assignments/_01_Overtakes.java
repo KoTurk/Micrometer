@@ -10,7 +10,8 @@ public class _01_Overtakes {
     public double count() {
 
         // TODO Create a counter and add one up
-        Counter counter = null;
+        Counter counter = Metrics.counter("overtakes");
+        counter.increment();
 
         return counter.count();
     }

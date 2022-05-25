@@ -29,7 +29,10 @@ public class _03_TaggedTagTimer {
        Timer timer = timers.get(name);
 
         if(timer == null) {
-            timer = null; // TODO create timer here
+            timer = Timer.builder(name)
+                    .tag(tagName, tagValue)
+                    .tag("teamname", "ferrari")
+                    .register(Metrics.globalRegistry);
             timers.put(tagValue, timer);
         }
         return timer;

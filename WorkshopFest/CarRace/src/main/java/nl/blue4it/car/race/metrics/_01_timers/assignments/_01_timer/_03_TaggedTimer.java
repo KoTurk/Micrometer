@@ -1,6 +1,7 @@
 package nl.blue4it.car.race.metrics._01_timers.assignments._01_timer;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Timer;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,8 @@ public class _03_TaggedTimer {
         Timer timer = timers.get(name);
 
         if(timer == null) {
-            timer = null; // TODO create timer here
+            timer = Timer.builder("assignment_1.1.5")
+                    .register(Metrics.globalRegistry);
             timers.put(name, timer);
         }
         return timer;

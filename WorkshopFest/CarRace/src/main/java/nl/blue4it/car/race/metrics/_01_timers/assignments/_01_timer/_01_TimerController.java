@@ -15,7 +15,7 @@ public class _01_TimerController {
     private final _02_Pitstop pitstop;
 
     @GetMapping("tires")
-    // TODO add the timer annotation and give it a name.
+    @Timed(value = "assignment_1.1.1")
     public String tires() {
         return "We did a pitstop in " + pitstop.changeTires().toSeconds() + " seconds";
     }
@@ -31,7 +31,7 @@ public class _01_TimerController {
     }
 
     @GetMapping("wrong")
-    // TODO create a longtasktimer and give it a name
+    @Timed(value = "assignment_1.1.1", longTask = true)
     public String pitstop() throws InterruptedException {
         pitstop.somethingsWrong();
         return "We did a pitstop";
