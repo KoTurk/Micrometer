@@ -1,15 +1,15 @@
 package nl.blue4it.paymentengine.kafka.basic;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import org.slf4j.Logger;
+
 @Component
-@RequiredArgsConstructor
-@Slf4j
 public class PartyModeConsumer {
+    Logger log = LoggerFactory.getLogger(PartyModeConsumer.class);
     private String record;
 
     @KafkaListener(topics = "engine", groupId = "something")

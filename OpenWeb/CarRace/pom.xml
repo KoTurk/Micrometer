@@ -14,7 +14,7 @@
     <name>OwnYourSoftware</name>
     <description>OwnYourSoftware</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>18</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -40,11 +40,6 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
