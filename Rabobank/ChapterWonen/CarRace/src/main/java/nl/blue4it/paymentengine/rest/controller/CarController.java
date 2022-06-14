@@ -44,30 +44,64 @@ public class CarController {
 
     @GetMapping("pitstop")
     // 1.1 Create Timed annotation and call it car.race.pitstop.annotation
-
+//    @Timed("car.race.pitstop.annotation")
     // 2.1 Create Timed annotation with tags
-
+    @Timed(value = "car.race.pitstop.annotation",
+                extraTags = { "driver", "verstappen",
+                        "changed", "tires",
+                        "changed", "front"}
+        )
     public String doPitstop() {
         // 1.2 Create Timer "car.race.pitstop.metrics" from Metrics class, call record from car.refuel
+        Metrics.timer("car.race.pitstop.metrics")
+                .record(car.refuel());
 
         // 1.3 Create Timer "car.race.pitstop.registry" with Timer.builder at default MeterRegistry registry
+        Timer.builder("car.race.pitstop.registry")
+                .tag("driver", "maxverstappen")
+                .register(registry)
+                .record(car.refuel());
 
         // 1.4 Create Timer from  at PrometheusRegistry to compare against SLA
+        Timer.builder("car.race.pitstop.builder.prometheus")
+                .sla(Duration.ofSeconds(8))
+                .minimumExpectedValue(Duration.ofSeconds(5))
+                .maximumExpectedValue(Duration.ofSeconds(10))
+                .register(prometheusMeterRegistry)
+                .record(ThreadLocalRandom.current().nextLong(3,20), TimeUnit.SECONDS);
 
         // 2.2 Create timer with tag from Timer.Builder, register and record it
         // call it here http://localhost:8080/actuator/metrics/car.race.pitstop.tag?tag=driver:verstappen
+        Timer.builder("car.race.pitstop.tag")
+                .tag("driver", "verstappen")
+                .tag("brand", "redbull")
+                .register(registry)
+                .record(car.refuel());
 
         //pitstop 2 perez
+        Timer.builder("car.race.pitstop.tag")
+                .tag("driver", "verstappen")
+                .register(registry)
+                .record(car.refuel());
 
         // pitstop 3 again perez
+        Timer.builder("car.race.pitstop.tag")
+                .tag("driver", "verstappen")
+                .register(registry)
+                .record(car.refuel());
 
         // 2.3 Create timer with TaggedTimer --> no need to create everytime a timer -> for example when having multiple pitstops
+        TaggedTimer perTypeTimer = new TaggedTimer("car.race.pitstop.dynamic", "driver", registry);
+        perTypeTimer.getTimer("verstappen").record(Duration.ofSeconds(2));
+        perTypeTimer.getTimer("perez").record(Duration.ofSeconds(3));
+        perTypeTimer.getTimer("perez").record(Duration.ofSeconds(5));
 
         return "Pitstop took " + car.refuel() + "seconds";
     }
 
     @GetMapping()
     // 3.1 Create LongTaskTimer
+    @Timed(value = "car.race", longTask = true)
     public String race() throws InterruptedException {
         car.driving();
         return "race is over";
@@ -76,6 +110,7 @@ public class CarController {
     @GetMapping("/lap")
     public String addLap() {
         // 4.1 Create Counter
+        Metrics.counter("car.race.laps").increment();
 
         return "added a lap";
     }
@@ -85,6 +120,7 @@ public class CarController {
         final int tireWear = car.getTireWear();
 
         // 5.1 Create Gauge
+        Metrics.gauge("car.race.tires", car.getTireWear());
 
         return "The lost " + tireWear + "%";
     }
@@ -94,6 +130,10 @@ public class CarController {
         String weather = randomWeather();
 
         // 5.2 create a Gauge, with value randomHardness
+        Gauge.builder("car.race.weather", this::randomHardness)
+                        .tags("condition", weather)
+                        .strongReference(true)
+                        .register(Metrics.globalRegistry);
 
         return weather;
     }
@@ -102,13 +142,14 @@ public class CarController {
     public ResponseEntity<Object> crash() {
         // 6.1 Throw an exception and find status in actuator
         //http://localhost:8080/actuator/metrics/http.server.requests?tag=uri:/car/race/crash
-        return null;
+        throw new CrashException("oh no crashed");
     }
 
     @GetMapping("/partymode")
     public String enginePartyMode() {
         // 7.1 Sending data to other Kafka topics and find the metrics in actuator
         // after calling the endpoint check metric spring.kafka.listener for the count
+        producer.send("engine", "Party Mode ON");
 
         return consumer.getRecord();
     }
@@ -116,7 +157,10 @@ public class CarController {
     @GetMapping("/registry")
     public Meter getRegistry() {
         // 8.1 getting the data out of actuator with registry.getMeters.stream
-        return null;
+        return registry.getMeters().stream()
+                .filter(meter -> meter.getId().getName().equals("http.server.requests"))
+                .findFirst()
+                .orElseThrow(NullPointerException::new);
     }
 
     @GetMapping("/remove/fastestlap")
@@ -141,6 +185,7 @@ public class CarController {
         // 9.1 remove the fastest lap from the registry
         //  for a driver because crossing a white line
         //  use a method from Metrics.globalRegistry
+        registry.remove(timer);
 
         return "removed";
     }
