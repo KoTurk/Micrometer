@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ToolTime
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
